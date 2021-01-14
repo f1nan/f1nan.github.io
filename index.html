@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+        />
+        <meta
+            name="description"
+            content="A simple yet complete To-Do App supporting multiple lists"
+        />
+        <meta name="keywords" content="To-Do App, To-Do Lists" />
+        <link rel="manifest" href="./manifest.json" />
+        <link
+            rel="shortcut icon"
+            href="./images/icons/icon-48x48.png"
+            type="image/x-icon"
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="TODOS" />
+        <link rel="apple-touch-icon" href="./images/icons/icon-152x152.png" />
+        <meta
+            name="msapplication-TileImage"
+            content="images/icons/icon-144x144.png"
+        />
+        <meta name="msapplication-TileColor" content="#00675b" />
+        <title>TODOS</title>
+        <link rel="stylesheet" href="./css/style.css" />
+        <script defer type="module" src="./js/app.js"></script>
+    </head>
+    <body>
+        <div class="Main">
+            <h1 class="Main_header">TODOS</h1>
+
+            <div class="Main_body">
+                <div class="TodoListsContainer">
+                    <div class="TodoListsContainer_header">
+                        <h2 class="Subtitle">Lists</h2>
+                    </div>
+                    <div class="TodoListsContainer_body">
+                        <form data-new-todo-list-form class="TodoListCreator">
+                            <input
+                                data-new-todo-list-input
+                                type="text"
+                                placeholder="enter new to-do list"
+                                aria-label="enter new to-do list"
+                                class="TodoListCreator_input"
+                            />
+                            <buttton class="Button TodoListCreator_button"
+                                >+</buttton
+                            >
+                        </form>
+                        <ul data-todo-lists class="TodoLists"></ul>
+                    </div>
+                </div>
+                <div class="TodoListContainer">
+                    <h2 class="Subtitle" data-todos-title></h2>
+                    <div class="TodoCreator">
+                        <form data-new-todo-form novalidate autocomplete="off">
+                            <input
+                                data-new-todo-input
+                                type="text"
+                                placeholder="enter new to-do"
+                                aria-label="enter new to-do"
+                                class="TodoCreator_input"
+                            />
+                            <button
+                                class="Button TodoCreator_button"
+                                aria-label="create new todo"
+                            >
+                                +
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="TodoList">
+                        <div class="TodoList_header">
+                            <div
+                                data-header-buttons
+                                class="TodoList_headerButtons"
+                            >
+                                <button
+                                    data-view="ALL"
+                                    class="Button TodoList_headerButton TodoList_headerButton___active"
+                                >
+                                    all
+                                </button>
+                                <button
+                                    data-view="OPEN"
+                                    class="Button TodoList_headerButton"
+                                >
+                                    open
+                                </button>
+                                <button
+                                    data-view="COMPLETED"
+                                    class="Button TodoList_headerButton"
+                                >
+                                    completed
+                                </button>
+                            </div>
+                            <p data-todo-count class="TodoList_todoCount"></p>
+                        </div>
+
+                        <div class="TodoList_body">
+                            <div data-todos class="TodoList_todos"></div>
+                        </div>
+
+                        <div class="TodoList_footer">
+                            <button
+                                data-clear-completed-button
+                                class="Button TodoList_footerButton"
+                                aria-label="clear completed todos"
+                            >
+                                clear completed
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <template data-todo-template>
+            <div class="TodoList_todoContainer">
+                <div class="TodoList_todo">
+                    <input type="checkbox" />
+                    <label>
+                        <span class="TodoList_customCheckbox"></span>
+                        <span class="TodoList_todoText"></span>
+                    </label>
+                </div>
+                <button class="Button TodoList_deleteTodoButton"></button>
+            </div>
+        </template>
+
+        <template data-todo-lists-list>
+            <li class="TodoLists_list">
+                <span></span>
+                <button class="Button TodoLists_list_deleteButton"></button>
+            </li>
+        </template>
+        <script>
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker
+                    .register("./service-worker.js")
+                    .then(() => {
+                        console.log("Service Worker: Registered");
+                    })
+                    .catch((err) => {
+                        console.log(`Service Worker: Error: ${err}`);
+                    });
+            }
+        </script>
+    </body>
+</html>
