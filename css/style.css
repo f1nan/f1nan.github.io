@@ -102,6 +102,8 @@ body {
 
 .TodoLists_list span {
     flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .TodoLists_list:hover {
