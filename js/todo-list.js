@@ -25,6 +25,10 @@ export class TodoList {
         this._todos = this.findOpen();
     }
 
+    removeAll() {
+        this._todos = [];
+    }
+
     findById(id) {
         return this._todos.find((todo) => todo.id === id);
     }

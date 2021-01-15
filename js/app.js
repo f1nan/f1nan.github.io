@@ -18,6 +18,7 @@ class App {
         this._todosContainer = elements.getTodosContainer();
         this._todosTitle = elements.getTodosTitle();
         this._clearCompletedButton = elements.getClearCompletedButton();
+        this._clearAllButton = elements.getClearallButton();
         this._todoTemplate = elements.getTodoTemplate();
         this._todoListsListTemplate = elements.getTodoListsListTemplate();
         this._addEventListeners();
@@ -164,6 +165,7 @@ class App {
             "click",
             this._handleClearCompleted
         );
+        this._clearAllButton.addEventListener("click", this._handleClearAll);
     }
 
     _handleNewTodoList = (e) => {
@@ -210,6 +212,11 @@ class App {
         this._storage.currentTodoList.removeCompleted();
         this._saveAndRender();
     };
+
+    _handleClearAll = (e) => {
+        this._storage.currentTodoList.removeAll();
+        this._saveAndRender();
+    }
 }
 
 const app = new App();

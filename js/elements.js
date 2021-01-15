@@ -14,6 +14,7 @@ const getTodoCountElement = () => getElement("todo-count");
 const getTodosContainer = () => getElement("todos");
 const getTodosTitle = () => getElement("todos-title");
 const getClearCompletedButton = () => getElement("clear-completed-button");
+const getClearallButton = () => getElement("clear-all-button");
 const getTodoTemplate = () => getElement("todo-template");
 const getTodoListsListTemplate = () => getElement("todo-lists-list");
 const getTodoListsList = () => getElement("todo-lists");
@@ -28,6 +29,7 @@ export const elements = {
     getTodosContainer,
     getTodosTitle,
     getClearCompletedButton,
+    getClearallButton,
     getTodoTemplate,
     getTodoListsListTemplate,
     getTodoListsList,
