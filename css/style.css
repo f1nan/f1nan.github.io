@@ -93,24 +93,35 @@ body {
 }
 
 .TodoLists_list {
+    --separator: rgba(116, 73, 73, 0.1);
     padding: var(--spacing);
-    border-bottom: 1px solid rgba(116, 73, 73, 0.1);
+    border-bottom: 1px solid var(--separator);
     opacity: 0.7;
     display: flex;
     cursor: pointer;
 }
 
-.TodoLists_list span {
+.TodoLists_list span[data-name] {
     flex-grow: 1;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.TodoLists_list span[data-count] {
+    display: block;
+    align-self: center;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    border-right: 1px solid var(--separator);
+    font-size: 0.9em;
+    white-space: nowrap;
 }
 
 .TodoLists_list:hover {
     opacity: 0.3;
 }
 
-.TodoLists_list___active {
+.TodoLists_list___active span[data-name] {
     font-weight: 700;
     color: var(--primary);
 }
@@ -336,7 +347,7 @@ body {
 .TodoList_deleteTodoButton::after,
 .TodoLists_list_deleteButton::after {
     content: "\002715";
-    padding: 0.5rem;
+    padding: 0.5rem 0 0.5rem 0.5rem;
     font-size: 1.5em;
     opacity: 0.7;
     color: var(--warning);

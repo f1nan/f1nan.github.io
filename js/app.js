@@ -79,7 +79,8 @@ class App {
         }
 
         li.id = todoList.id;
-        element.querySelector("span").innerText = todoList.name;
+        li.querySelector("[data-name]").innerText = todoList.name;
+        li.querySelector("[data-count]").innerText = `${todoList.findCompleted().length} / ${todoList.findAll().length}`;
 
         li.addEventListener("click", (e) => {
             this._storage.currentTodoList = todoList;
@@ -206,6 +207,7 @@ class App {
         todo.completed = e.target.checked;
         this._storage.save();
         this._renderTodoCount();
+        this._renderTodoLists();
     };
 
     _handleClearCompleted = (e) => {
