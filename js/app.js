@@ -202,7 +202,8 @@ class App {
     _handleTodoCompletedChange = (e) => {
         const todo = this._storage.currentTodoList.findById(e.target.id);
         todo.completed = e.target.checked;
-        this._saveAndRender();
+        this._storage.save();
+        this._renderTodoCount();
     };
 
     _handleClearCompleted = (e) => {

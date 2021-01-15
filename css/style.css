@@ -344,8 +344,8 @@ body {
     input[type="checkbox"]:checked
     + label
     .TodoList_todoText::after {
-    transform-origin: left;
     transform: scaleX(1);
+    transform-origin: left;
 }
 
 .TodoList_footer {
