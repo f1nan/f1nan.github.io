@@ -1,4 +1,4 @@
-const cacheName = "v1.2";
+const cacheName = "v1.0.3";
 
 const cacheAssets = [
     "/",
@@ -27,7 +27,7 @@ self.addEventListener("install", (e) => {
 
     e.waitUntil(
         caches
-            .open()
+            .open(cacheName)
             .then((cache) => cache.addAll(cacheAssets))
             .then(() => self.skipWaiting())
     );
