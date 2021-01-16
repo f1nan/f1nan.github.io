@@ -1,6 +1,6 @@
-const cacheName = "v1.0.4";
+const CACHE_NAME = "v1.0.4";
 
-const cacheAssets = [
+const CACHE_ASSETS = [
     "/",
     "/css/style.css",
     "/images/icons/icon-48x48.png",
@@ -25,38 +25,49 @@ const cacheAssets = [
 self.addEventListener("install", (e) => {
     console.log("Service Worker: Installed");
 
-    e.waitUntil(async () => {
-        const cache = await caches.open(cacheName);
-        await cache.addAll(cacheAssets);
-        return self.skipWaiting();
-    });
+    e.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => cache.addAll(CACHE_ASSETS))
+    );
 });
 
 self.addEventListener("activate", (e) => {
     console.log("Service Worker: Activated");
 
-    e.waitUntil(async () => {
-        const keys = await caches.keys();
-        return Promise.all(
-            keys
-                .filter((key) => key !== cacheName)
-                .map((key) => caches.delete(key))
-        );
-    });
+    e.waitUntil(
+        caches
+            .keys()
+            .filter((key) => key !== CACHE_NAME)
+            .map((key) => caches.delete(key))
+    );
 });
 
 self.addEventListener("fetch", (e) => {
     console.log("Service Worker: Fetching");
 
-    e.respondWith(async () => {
-        let res = await caches.match(e.request);
-        if (res) {
-            return res;
-        }
+    function isInvalid(response) {
+        return (
+            !response || response.status !== 200 || response.type !== "basic"
+        );
+    }
 
-        res = await fetch(e.request);
-        const cache = await caches.open(cacheName);
-        cache.put(e.request, res.clone());
-        return res;
-    });
+    e.respondWith(
+        caches.match(e.request).then((res) => {
+            if (res) {
+                return res;
+            }
+
+            return fetch(e.request).then((res) => {
+                if (isInvalid(res)) {
+                    return res;
+                }
+
+                const resToCache = res.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(e.request, resToCache);
+                });
+
+                return res;
+            });
+        })
+    );
 });
