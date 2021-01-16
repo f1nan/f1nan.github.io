@@ -1,4 +1,4 @@
-const CACHE_NAME = "v1.0.4";
+const CACHE_NAME = "v1.0.5";
 
 const CACHE_ASSETS = [
     "/",
@@ -37,7 +37,7 @@ self.addEventListener("activate", (e) => {
         caches
             .keys()
             .then((cacheNames) =>
-                Promise.all((cacheNames) =>
+                Promise.all(
                     cacheNames
                         .filter((cacheName) => cacheName !== CACHE_NAME)
                         .map((cacheName) => caches.delete(cacheName))
