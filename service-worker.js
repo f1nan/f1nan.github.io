@@ -36,8 +36,13 @@ self.addEventListener("activate", (e) => {
     e.waitUntil(
         caches
             .keys()
-            .filter((key) => key !== CACHE_NAME)
-            .map((key) => caches.delete(key))
+            .then((cacheNames) =>
+                Promise.all((cacheNames) =>
+                    cacheNames
+                        .filter((cacheName) => cacheName !== CACHE_NAME)
+                        .map((cacheName) => caches.delete(cacheName))
+                )
+            )
     );
 });
 
