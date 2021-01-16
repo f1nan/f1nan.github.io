@@ -1,4 +1,4 @@
-const cacheName = "v1.0.3";
+const cacheName = "v1.0.4";
 
 const cacheAssets = [
     "/",
@@ -25,34 +25,38 @@ const cacheAssets = [
 self.addEventListener("install", (e) => {
     console.log("Service Worker: Installed");
 
-    e.waitUntil(
-        caches
-            .open(cacheName)
-            .then((cache) => cache.addAll(cacheAssets))
-            .then(() => self.skipWaiting())
-    );
+    e.waitUntil(async () => {
+        const cache = await caches.open(cacheName);
+        await cache.addAll(cacheAssets);
+        return self.skipWaiting();
+    });
 });
 
 self.addEventListener("activate", (e) => {
     console.log("Service Worker: Activated");
 
-    e.waitUntil(
-        caches
-            .keys()
-            .then((cacheNames) =>
-                Promise.all(
-                    cacheNames
-                        .filter((cache) => cache !== cacheName)
-                        .map((cache) => caches.delete(cache))
-                )
-            )
-    );
+    e.waitUntil(async () => {
+        const keys = await caches.keys();
+        return Promise.all(
+            keys
+                .filter((key) => key !== cacheName)
+                .map((key) => caches.delete(key))
+        );
+    });
 });
 
 self.addEventListener("fetch", (e) => {
     console.log("Service Worker: Fetching");
 
-    e.respondWith(
-        fetch(e.request).catch(() => caches.match(e.request).then((res) => res))
-    );
+    e.respondWith(async () => {
+        let res = await caches.match(e.request);
+        if (res) {
+            return res;
+        }
+
+        res = await fetch(e.request);
+        const cache = await caches.open(cacheName);
+        cache.put(e.request, res.clone());
+        return res;
+    });
 });
