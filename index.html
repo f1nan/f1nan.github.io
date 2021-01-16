@@ -2,10 +2,7 @@
 <html lang="en">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-            name="viewport"
-            content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
-        />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta
             name="description"
             content="A simple yet complete To-Do App supporting multiple lists"
@@ -49,7 +46,10 @@
                                 aria-label="enter new to-do list"
                                 class="TodoListCreator_input"
                             />
-                            <button class="Button TodoListCreator_button">
+                            <button
+                                class="Button TodoListCreator_button"
+                                aria-label="create new to-do list"
+                            >
                                 +
                             </button>
                         </form>
@@ -85,18 +85,21 @@
                                 <button
                                     data-view="ALL"
                                     class="Button TodoList_headerButton TodoList_headerButton___active"
+                                    aria-label="show all to-tods in selected list"
                                 >
                                     all
                                 </button>
                                 <button
                                     data-view="OPEN"
                                     class="Button TodoList_headerButton"
+                                    aria-label="show open to-tods in selected list"
                                 >
                                     open
                                 </button>
                                 <button
                                     data-view="COMPLETED"
                                     class="Button TodoList_headerButton"
+                                    aria-label="show completed to-tods in selected list"
                                 >
                                     completed
                                 </button>
