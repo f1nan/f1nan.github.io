@@ -328,20 +328,15 @@ body {
 .TodoList_todoText {
     display: inline-block;
     margin-left: 0.75em;
-    position: relative;
+    text-decoration: line-through 2px solid transparent;
+    transition: text-decoration-color 250ms ease-in-out;
 }
 
-.TodoList_todoText::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    height: 2px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 150ms ease-in-out;
+.TodoList_todoContainer
+    input[type="checkbox"]:checked
+    + label
+    .TodoList_todoText {
+    text-decoration-color: currentColor;
 }
 
 .TodoList_deleteTodoButton::after,
@@ -351,14 +346,6 @@ body {
     font-size: 1.5em;
     opacity: 0.7;
     color: var(--warning);
-}
-
-.TodoList_todoContainer
-    input[type="checkbox"]:checked
-    + label
-    .TodoList_todoText::after {
-    transform: scaleX(1);
-    transform-origin: left;
 }
 
 .TodoList_footer {
